@@ -35,6 +35,14 @@ after :publishing, 'campfire:deploy'
 
 or at any other point on your choice.
 
+Configure Campfire access:
+
+```ruby
+set :campfire_subdomain, 'subdomain'
+set :campfire_token,     'token'
+set :campfire_room_id,   123
+```
+
 You can change default message as a whole:
 
 ```ruby

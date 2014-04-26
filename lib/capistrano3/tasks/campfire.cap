@@ -8,7 +8,9 @@ namespace :campfire do
       driver = Tinder::Campfire.new(
         fetch(:campfire_subdomain), token: fetch(:campfire_token))
 
-      notifier = Capistrano3::Campfire::Notifier.new(driver)
+      notifier = Capistrano3::Campfire::Notifier.new(
+        fetch(:campfire_room_id), driver)
+
       notifier.notify(fetch(:campfire_message, message))
     end
   end

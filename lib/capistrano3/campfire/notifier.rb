@@ -1,14 +1,16 @@
 module Capistrano3
   module Campfire
     class Notifier
-      attr_reader :driver
+      attr_reader :room_id, :driver
 
-      def initialize(driver)
+      def initialize(room_id, driver)
+        @room_id = room_id
         @driver = driver
       end
 
       def notify(message)
-        driver.speak(message)
+        room = driver.find_room_by_id(room_id)
+        room.speak(message)
       end
     end
   end
