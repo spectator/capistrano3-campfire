@@ -1,0 +1,31 @@
+require 'tinder'
+require File.expand_path('../tasks/campfire/notifier', __FILE__)
+
+namespace :campfire do
+  desc 'Trigger deploy notification to Campfire'
+  task :deploy do
+    run_locally do
+      driver = Tinder::Campfire.new(
+        fetch(:campfire_subdomain), token: fetch(:campfire_token))
+
+      notifier = Capistrano3::Campfire::Notifier.new(driver)
+      notifier.notify(fetch(:campfire_message, message))
+    end
+  end
+
+  def message
+    "#{message_user} deployed #{message_sha} to #{message_env}"
+  end
+
+  def message_user
+    ENV['USER'] || fetch(:campfire_user)
+  end
+
+  def message_sha
+    fetch(:branch, fetch(:campfire_sha))
+  end
+
+  def message_env
+    fetch(:stage, fetch(:campfire_env))
+  end
+end
