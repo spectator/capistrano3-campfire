@@ -1,5 +1,5 @@
 require 'tinder'
-require File.expand_path('../campfire/notifier', __FILE__)
+require File.expand_path('../../campfire/notifier', __FILE__)
 
 namespace :campfire do
   desc 'Trigger deploy notification to Campfire'
